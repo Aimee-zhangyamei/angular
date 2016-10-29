@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="my" >
+外面<input type="text" ng-model="title">
+<test t="title" s="say(w,e)"></test>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app =angular.module('appModule',[]);
+    app.controller('my',function ($scope) {
+        $scope.title = 100;
+        $scope.say = function (who,where) {
+            console.log(who,where);
+        }
+    });
+    app.directive('test',function () {
+        return {
+            template:`里面<input type="text" ng-model="m"/>
+                <button ng-click="q({w:'你好啊',e:'北京'})">点我啊</button>`,
+            scope:{
+                //m:'@t' //取当前指令的属性t对应的字符串 $scope.m =100 单项绑定
+                //m:'=t'//$scope.m = $scope.title=100 引用的是变量不需要花括号取值，并且是双向绑定
+                q:'&s'
+            }
+        }
+    });
+</script>
+</body>
+</html>
